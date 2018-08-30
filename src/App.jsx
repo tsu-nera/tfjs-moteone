@@ -25,7 +25,7 @@ class App extends React.Component {
 
   componentDidMount() {
     tf.loadModel(
-      "https://raw.githubusercontent.com/tsu-nera/tfjs-moteone/master/model/model.json"
+      "https://raw.githubusercontent.com/tsu-nera/tfjs-moteone/master/model/male/model.json"
     ).then(model => {
       this.setState({
         is_loading: "",
@@ -41,7 +41,7 @@ class App extends React.Component {
   getAccuracyScores(imageData) {
     const scores = tf.tidy(() => {
       // convert to tensor (shape: [width, height, channels])
-      const channels = 1;
+      const channels = 3;
       let input = tf.fromPixels(imageData, channels);
 
       // normalized
@@ -60,27 +60,16 @@ class App extends React.Component {
       const context = document.createElement("canvas").getContext("2d");
 
       const image = new Image();
-      const width = 28;
-      const height = 28;
+      const width = 160;
+      const height = 160;
 
       image.onload = () => {
         context.drawImage(image, 0, 0, width, height);
         const imageData = context.getImageData(0, 0, width, height);
-
-        for (let i = 0; i < imageData.data.length; i += 4) {
-          const avg =
-            (imageData.data[i] +
-              imageData.data[i + 1] +
-              imageData.data[i + 2]) /
-            3;
-          imageData.data[i] = avg;
-          imageData.data[i + 1] = avg;
-          imageData.data[i + 2] = avg;
-        }
         resolve(imageData);
       };
 
-      image.src = this.signaturePad.toDataURL();
+      image.src = this.state.screenshot;
     });
   }
 
@@ -94,22 +83,10 @@ class App extends React.Component {
   }
 
   predict() {
-    this.getImageData()
-      .then(imageData => this.getAccuracyScores(imageData))
-      .then(accuracyScores => {
-        const maxAccuracy = accuracyScores.indexOf(
-          Math.max.apply(null, accuracyScores)
-        );
-        const elements = document.querySelectorAll(".accuracy");
-        elements.forEach(el => {
-          el.parentNode.classList.remove("is-selected");
-          const rowIndex = Number(el.dataset.rowIndex);
-          if (maxAccuracy === rowIndex) {
-            el.parentNode.classList.add("is-selected");
-          }
-          el.innerText = accuracyScores[rowIndex];
-        });
-      });
+    this.getImageData().then(imageData => {
+      const scores = this.getAccuracyScores(imageData);
+      console.log(scores);
+    });
   }
 
   render() {
