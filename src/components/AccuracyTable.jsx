@@ -12,14 +12,6 @@ const AccuracyTable = () => (
     <tbody>
       <Accuracy no={0} content="-" />
       <Accuracy no={1} content="-" />
-      <Accuracy no={2} content="-" />
-      <Accuracy no={3} content="-" />
-      <Accuracy no={4} content="-" />
-      <Accuracy no={5} content="-" />
-      <Accuracy no={6} content="-" />
-      <Accuracy no={7} content="-" />
-      <Accuracy no={8} content="-" />
-      <Accuracy no={9} content="-" />
     </tbody>
   </table>
 );

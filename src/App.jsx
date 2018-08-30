@@ -1,11 +1,10 @@
 import React from "react";
 import "./App.css";
 import * as tf from "@tensorflow/tfjs";
-import SignaturePad from "react-signature-pad-wrapper";
 import "bulma/css/bulma.css";
-import { BrowserView, MobileView } from "react-device-detect";
+import Webcam from "react-webcam";
 import PredictButton from "./components/PredictButton";
-import ResetButton from "./components/ResetButton";
+import CaptureButton from "./components/CaptureButton";
 import AccuracyTable from "./components/AccuracyTable";
 
 class App extends React.Component {
@@ -13,18 +12,20 @@ class App extends React.Component {
     super();
     this.state = {
       is_loading: "is-loading",
-      model: null
+      model: null,
+      screenshot: null
     };
     this.onRef = this.onRef.bind(this);
     this.getImageData = this.getImageData.bind(this);
     this.getAccuracyScores = this.getAccuracyScores.bind(this);
     this.predict = this.predict.bind(this);
-    this.reset = this.reset.bind(this);
+    this.setRef = this.setRef.bind(this);
+    this.capture = this.capture.bind(this);
   }
 
   componentDidMount() {
     tf.loadModel(
-      "https://raw.githubusercontent.com/tsu-nera/tfjs-mnist-study/master/model/model.json"
+      "https://raw.githubusercontent.com/tsu-nera/tfjs-moteone/master/model/model.json"
     ).then(model => {
       this.setState({
         is_loading: "",
@@ -83,6 +84,15 @@ class App extends React.Component {
     });
   }
 
+  setRef(webcam) {
+    this.webcam = webcam;
+  }
+
+  capture() {
+    const screenshot = this.webcam.getScreenshot();
+    this.setState({ screenshot });
+  }
+
   predict() {
     this.getImageData()
       .then(imageData => this.getAccuracyScores(imageData))
@@ -102,56 +112,38 @@ class App extends React.Component {
       });
   }
 
-  reset() {
-    this.signaturePad.instance.clear();
-    const elements = document.querySelectorAll(".accuracy");
-    elements.forEach(el => {
-      el.parentNode.classList.remove("is-selected");
-      el.innerText = "-";
-    });
-  }
-
   render() {
     return (
       <div className="container">
         <h1 className="title" style={{ textAlign: "center" }}>
-          MNIST recognition with TensorFlow.js
+          イケメン判定(あなたはサルか人間か？)
         </h1>
         <div className="columns is-centered">
-          <div className="column is-3">
-            <BrowserView>
-              <SignaturePad
-                ref={this.onRef}
-                width={280}
-                height={280}
-                options={{
-                  minWidth: 6,
-                  maxWidth: 6,
-                  penColor: "white",
-                  backgroundColor: "black"
-                }}
-              />
-            </BrowserView>
-            <MobileView>
-              <SignaturePad
-                width={100}
-                height={100}
-                ref={this.onRef}
-                options={{
-                  minWidth: 6,
-                  maxWidth: 6,
-                  penColor: "white",
-                  backgroundColor: "black"
-                }}
-              />
-            </MobileView>
+          <div className="column is-4">
+            <h2>Webcam</h2>
+            <Webcam
+              audio={false}
+              height={350}
+              ref={this.setRef}
+              screenshotFormat="image/jpeg"
+              width={350}
+            />
+            <div>
+              <h2>Screenshot</h2>
+              <div className="screenshots">
+                <div className="controls" />
+                {this.state.screenshot ? (
+                  <img src={this.state.screenshot} alt="screenshot" />
+                ) : null}
+              </div>
+            </div>
             <div className="field is-grouped">
+              <CaptureButton className="control" capture={this.capture} />
               <PredictButton
                 className="control"
                 isLoading={this.state.is_loading}
                 predict={this.predict}
               />
-              <ResetButton className="control" reset={this.reset} />
             </div>
           </div>
           <div className="column is-3">

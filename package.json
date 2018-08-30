@@ -14,6 +14,7 @@
     "react-dom": "^16.4.2",
     "react-scripts": "1.1.5",
     "react-signature-pad-wrapper": "^1.2.2",
+    "react-webcam": "^1.0.1",
     "signature_pad": "^3.0.0-beta.3"
   },
   "scripts": {
