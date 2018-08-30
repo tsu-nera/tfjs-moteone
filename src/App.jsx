@@ -25,7 +25,7 @@ class App extends React.Component {
 
   componentDidMount() {
     tf.loadModel(
-      "https://raw.githubusercontent.com/tsu-nera/tfjs-moteone/master/model/man/model.json"
+      "https://raw.githubusercontent.com/tsu-nera/tfjs-moteone/master/model/model.json"
     ).then(model => {
       this.setState({
         is_loading: "",
