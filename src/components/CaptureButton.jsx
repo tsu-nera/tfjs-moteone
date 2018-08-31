@@ -1,9 +1,10 @@
 import React from "react";
+import Button from "@material-ui/core/Button";
 
 const CaptureButton = props => (
-  <a className="button" onClick={props.capture}>
+  <Button variant="contained" onClick={props.capture}>
     Capture
-  </a>
+  </Button>
 );
 
 export default CaptureButton;

@@ -1,9 +1,15 @@
 import React from "react";
+import Button from "@material-ui/core/Button";
 
 const PredictButton = props => (
-  <a className={`button is-link ${props.isLoading}`} onClick={props.predict}>
+  <Button
+    variant="contained"
+    color="primary"
+    className={`${props.isLoading}`}
+    onClick={props.predict}
+  >
     Prediction
-  </a>
+  </Button>
 );
 
 export default PredictButton;

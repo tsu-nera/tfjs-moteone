@@ -1,7 +1,11 @@
 import React from "react";
+
 import "./App.css";
 import * as tf from "@tensorflow/tfjs";
 import Webcam from "react-webcam";
+import { AppBar, Toolbar, Typography } from "@material-ui/core";
+import Grid from "@material-ui/core/Grid";
+
 import PredictButton from "./components/PredictButton";
 import CaptureButton from "./components/CaptureButton";
 import AccuracyTable from "./components/AccuracyTable";
@@ -90,43 +94,57 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="container">
-        <h1 className="title" style={{ textAlign: "center" }}>
-          イケメン判定 with TensorFlow.js
-        </h1>
-        <div className="columns is-centered">
-          <div className="column is-4">
-            <h2>Webcam</h2>
-            <Webcam
-              audio={false}
-              height={350}
-              ref={this.setRef}
-              screenshotFormat="image/jpeg"
-              width={350}
+      <Grid>
+        <AppBar position="static" color="primary">
+          <Toolbar>
+            <Typography variant="title" color="inherit">
+              IkeMen
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <div
+          style={{
+            maxWidth: 900,
+            marginLeft: "auto",
+            marginRight: "auto"
+          }}
+        >
+          <h1 className="title" style={{ textAlign: "center" }}>
+            イケメン判定 with TensorFlow.js
+          </h1>
+          <div style={{ textAlign: "center" }}>
+            <CaptureButton capture={this.capture} />
+            <PredictButton
+              isLoading={this.state.is_loading}
+              predict={this.predict}
             />
-            <div>
-              <h2>Screenshot</h2>
+          </div>
+          <Grid container spacing={3}>
+            <Grid item xs>
+              <h3>Webcam</h3>
+              <Webcam
+                audio={false}
+                height={190}
+                ref={this.setRef}
+                screenshotFormat="image/jpeg"
+                width={250}
+              />
+            </Grid>
+            <Grid item xs>
+              <h3>Screenshot</h3>
               <div className="screenshots">
                 <div className="controls" />
                 {this.state.screenshot ? (
                   <img src={this.state.screenshot} alt="screenshot" />
                 ) : null}
               </div>
-            </div>
-            <div className="field is-grouped">
-              <CaptureButton className="control" capture={this.capture} />
-              <PredictButton
-                className="control"
-                isLoading={this.state.is_loading}
-                predict={this.predict}
-              />
-            </div>
-          </div>
-          <div className="column is-3">
-            <AccuracyTable />
-          </div>
+            </Grid>
+            <Grid item xs>
+              <AccuracyTable />
+            </Grid>
+          </Grid>
         </div>
-      </div>
+      </Grid>
     );
   }
 }
