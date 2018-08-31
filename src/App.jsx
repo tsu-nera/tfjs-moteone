@@ -112,16 +112,9 @@ class App extends React.Component {
           <h1 className="title" style={{ textAlign: "center" }}>
             イケメン判定 with TensorFlow.js
           </h1>
-          <div style={{ textAlign: "center" }}>
-            <CaptureButton capture={this.capture} />
-            <PredictButton
-              isLoading={this.state.is_loading}
-              predict={this.predict}
-            />
-          </div>
           <Grid container spacing={3}>
             <Grid item xs>
-              <h3>Webcam</h3>
+              <h3>1.Webcam</h3>
               <Webcam
                 audio={false}
                 height={190}
@@ -131,7 +124,7 @@ class App extends React.Component {
               />
             </Grid>
             <Grid item xs>
-              <h3>Screenshot</h3>
+              <h3>2.Screenshot</h3>
               <div className="screenshots">
                 <div className="controls" />
                 {this.state.screenshot ? (
@@ -144,6 +137,22 @@ class App extends React.Component {
             </Grid>
           </Grid>
         </div>
+        <Grid container spacing={3}>
+          <Grid item xs>
+            {" "}
+          </Grid>
+          <Grid item xs>
+            <div style={{ textAlign: "center" }}>
+              <CaptureButton capture={this.capture} />
+            </div>
+          </Grid>
+          <Grid item xs>
+            <PredictButton
+              isLoading={this.state.is_loading}
+              predict={this.predict}
+            />
+          </Grid>
+        </Grid>
       </Grid>
     );
   }

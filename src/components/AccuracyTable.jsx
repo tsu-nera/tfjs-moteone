@@ -6,24 +6,27 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 
 const AccuracyTable = () => (
-  <Table>
-    <TableHead>
-      <TableRow>
-        <TableCell>You</TableCell>
-        <TableCell>Accuracy</TableCell>
-      </TableRow>
-    </TableHead>
-    <TableBody>
-      <TableRow key={1}>
-        <TableCell scope="row">イケメン</TableCell>
-        <TableCell>-</TableCell>
-      </TableRow>
-      <TableRow key={2}>
-        <TableCell scope="row">キモい</TableCell>
-        <TableCell>-</TableCell>
-      </TableRow>
-    </TableBody>
-  </Table>
+  <div>
+    <h3>3.Result</h3>
+    <Table>
+      <TableHead>
+        <TableRow>
+          <TableCell>You are</TableCell>
+          <TableCell>Accuracy</TableCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        <TableRow key={1}>
+          <TableCell scope="row">イケメン</TableCell>
+          <TableCell>-</TableCell>
+        </TableRow>
+        <TableRow key={2}>
+          <TableCell scope="row">キモい</TableCell>
+          <TableCell>-</TableCell>
+        </TableRow>
+      </TableBody>
+    </Table>
+  </div>
 );
 
 export default AccuracyTable;
