@@ -5,10 +5,10 @@ const PredictButton = props => (
   <Button
     variant="contained"
     color="primary"
-    className={`${props.isLoading}`}
+    disabled={props.isLoading}
     onClick={props.predict}
   >
-    Prediction
+    Predict
   </Button>
 );
 

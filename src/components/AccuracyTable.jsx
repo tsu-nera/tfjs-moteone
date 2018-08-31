@@ -5,7 +5,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 
-const AccuracyTable = () => (
+const AccuracyTable = props => (
   <div>
     <h3>3.Result</h3>
     <Table>
@@ -18,11 +18,16 @@ const AccuracyTable = () => (
       <TableBody>
         <TableRow key={1}>
           <TableCell scope="row">イケメン</TableCell>
-          <TableCell>-</TableCell>
+          <TableCell>
+            {props.scores[0] === "-" ? "-" : props.scores[0].toFixed(8)}
+          </TableCell>
         </TableRow>
         <TableRow key={2}>
           <TableCell scope="row">キモい</TableCell>
-          <TableCell>-</TableCell>
+          <TableCell>
+            {" "}
+            {props.scores[1] === "-" ? "-" : props.scores[1].toFixed(8)}
+          </TableCell>
         </TableRow>
       </TableBody>
     </Table>

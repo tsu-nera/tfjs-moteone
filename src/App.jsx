@@ -14,9 +14,10 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      is_loading: "is-loading",
+      is_loading: true,
       model: null,
-      screenshot: null
+      screenshot: null,
+      scores: ["-", "-"]
     };
     this.onRef = this.onRef.bind(this);
     this.getImageData = this.getImageData.bind(this);
@@ -31,7 +32,7 @@ class App extends React.Component {
       "https://raw.githubusercontent.com/tsu-nera/tfjs-moteone/master/model/model.json"
     ).then(model => {
       this.setState({
-        is_loading: "",
+        is_loading: false,
         model
       });
     });
@@ -88,7 +89,7 @@ class App extends React.Component {
   predict() {
     this.getImageData().then(imageData => {
       const scores = this.getAccuracyScores(imageData);
-      console.log(scores);
+      this.setState({ scores });
     });
   }
 
@@ -117,7 +118,7 @@ class App extends React.Component {
               <h3>1.Webcam</h3>
               <Webcam
                 audio={false}
-                height={190}
+                height={185}
                 ref={this.setRef}
                 screenshotFormat="image/jpeg"
                 width={250}
@@ -133,7 +134,7 @@ class App extends React.Component {
               </div>
             </Grid>
             <Grid item xs>
-              <AccuracyTable />
+              <AccuracyTable scores={this.state.scores} />
             </Grid>
           </Grid>
         </div>
