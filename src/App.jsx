@@ -1,7 +1,6 @@
 import React from "react";
 import "./App.css";
 import * as tf from "@tensorflow/tfjs";
-import "bulma/css/bulma.css";
 import Webcam from "react-webcam";
 import PredictButton from "./components/PredictButton";
 import CaptureButton from "./components/CaptureButton";
@@ -93,7 +92,7 @@ class App extends React.Component {
     return (
       <div className="container">
         <h1 className="title" style={{ textAlign: "center" }}>
-          イケメン判定(あなたはサルか人間か？)
+          イケメン判定 with TensorFlow.js
         </h1>
         <div className="columns is-centered">
           <div className="column is-4">
