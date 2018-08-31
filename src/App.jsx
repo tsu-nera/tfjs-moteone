@@ -9,6 +9,7 @@ import Grid from "@material-ui/core/Grid";
 import PredictButton from "./components/PredictButton";
 import CaptureButton from "./components/CaptureButton";
 import AccuracyTable from "./components/AccuracyTable";
+import Message from "./components/Message";
 
 class App extends React.Component {
   constructor() {
@@ -154,6 +155,10 @@ class App extends React.Component {
             />
           </Grid>
         </Grid>
+        <Message
+          isLoading={this.state.is_loading}
+          score={this.state.scores[0]}
+        />
       </Grid>
     );
   }
