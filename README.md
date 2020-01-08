@@ -5,7 +5,7 @@
 
 A live version of this code is hosted here:
 
-- https://http://tfjs-ikemen-classification.herokuapp.com
+- https://tfjs-ikemen-classification.herokuapp.com
 
 ## Getting Started
 
